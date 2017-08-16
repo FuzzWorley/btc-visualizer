@@ -6,8 +6,8 @@ const ws = new WebSocket('wss://ws.blockchain.info/inv', {
 module.exports = {
   vizualize: (req, res) => {
     sails.log(ws)
-    VizualizerService.subscribeToTransactions();
-    VizualizerService.istenForMessages();
+    VisualizerService.subscribeToTransactions(ws);
+    VisualizerService.listenForMessages(ws);
     return res.send('Hi there!');
   },
 
