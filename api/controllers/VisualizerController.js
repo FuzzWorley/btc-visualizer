@@ -6,23 +6,9 @@ const ws = new WebSocket('wss://ws.blockchain.info/inv', {
 module.exports = {
   vizualize: (req, res) => {
     sails.log(ws)
-    VisualizerService.subscribeToTransactions(ws);
     VisualizerService.listenForMessages(ws);
+    ws.send(JSON.stringify({"op":"unconfirmed_sub"}));
     return res.send('Hi there!');
-  },
-
-  subscribeToTransactions: (req, res) => {
-    sails.log('subscribing');
-    ws.on('connection', function connection(ws) {
-      ws.send({"op":"unconfirmed_sub"});
-    });
-  },
-
-  listenForMessages: (req, res) => {
-    sails.log('listening');
-    ws.on('message', function incoming(data) {
-      sails.log(data);
-    });
   }
 };
 

@@ -1,8 +1,8 @@
 module.exports = {
   subscribeToTransactions: (ws, req, res) => {
     sails.log('subscribing');
-    ws.on('connection', function connection(ws) {
-      ws.send({"op":"unconfirmed_sub"});
+    ws.on('open', function open(ws) {
+      ws.send(JSON.stringify({"op":"unconfirmed_sub"}));
     });
   },
 
